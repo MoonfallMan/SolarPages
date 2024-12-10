@@ -24,6 +24,7 @@
     </script>
 </head>
 <body>
+    <div id="star-field"></div>
     <header>
         <nav>
             <div class="nav-container">
@@ -40,6 +41,10 @@
 
     <main>
         <section id="home" class="hero">
+            <div class="eclipse-animation">
+                <div class="sun"></div>
+                <div class="moon"></div>
+            </div>
             <div class="hero-content">
                 <h1>Total Solar Eclipse 2024</h1>
                 <p class="countdown" id="countdown">Time until eclipse: Loading...</p>
@@ -59,6 +64,16 @@
             <div class="content-container">
                 <div id="eclipse-map"></div>
                 <div class="path-info">
+                    <div class="location-checker">
+                        <h3>Are You in the Path?</h3>
+                        <button id="check-location" class="glow-button">
+                            <span class="button-content">
+                                <i class="location-icon">📍</i>
+                                Check Your Location
+                            </span>
+                        </button>
+                        <p id="location-result" class="location-result"></p>
+                    </div>
                     <p>The path of totality will enter through Texas and travel northeast through states including:</p>
                     <ul>
                         <li>Texas</li>
@@ -81,6 +96,26 @@
         <section id="timing" class="timing">
             <h2>Timing</h2>
             <div class="content-container">
+                <div class="simulator-container">
+                    <h3>Interactive Eclipse Simulator</h3>
+                    <div class="eclipse-simulator">
+                        <div class="simulation-window">
+                            <div class="sim-sun"></div>
+                            <div class="corona"></div>
+                            <div class="sim-moon"></div>
+                        </div>
+                        <div class="simulator-controls">
+                            <input type="range" id="eclipse-progress" min="0" max="100" value="0">
+                            <button id="play-eclipse" class="glow-button">
+                                <span class="button-content">
+                                    <span class="play-icon">▶️</span>
+                                    <span>Play Animation</span>
+                                </span>
+                            </button>
+                            <div id="phase-text">Partial Eclipse Beginning</div>
+                        </div>
+                    </div>
+                </div>
                 <p>The eclipse will begin in Texas at approximately 1:27 PM CDT and end in Maine at 3:35 PM EDT.</p>
                 <div class="timing-card">
                     <h3>Duration</h3>
