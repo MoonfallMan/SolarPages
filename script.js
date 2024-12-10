@@ -332,14 +332,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const phaseText = document.getElementById('phase-text');
     const simMoon = document.querySelector('.sim-moon');
     const corona = document.querySelector('.corona');
+    const simSun = document.querySelector('.sim-sun');
     let animationInterval;
 
     function updateEclipse(progress) {
-        // Calculate moon position - straight line movement only
-        const startX = 150; // Starting position to the right
-        const endX = -150; // Ending position to the left
+        // Calculate moon position
+        const startX = 150;
+        const endX = -150;
         const x = startX + ((endX - startX) * (progress / 100));
-        
         simMoon.style.transform = `translate(calc(-50% + ${x}px), -50%)`;
 
         // Update phase text and effects
@@ -361,46 +361,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Update sun glow effect
-        const coverage = Math.abs(50 - progress) / 50; // 0 at totality, 1 at start/end
+        const coverage = Math.abs(50 - progress) / 50;
         const baseGlow = 20;
         const maxGlow = 60;
         const currentGlow = baseGlow + (coverage * (maxGlow - baseGlow));
-        
-        // Special effect during totality
         const glowColor = progress >= 45 && progress <= 55 ? '#ff4500' : '#ff6f00';
-        document.querySelector('.sim-sun').style.boxShadow = 
-            `0 0 ${currentGlow}px ${glowColor}, 0 0 ${currentGlow * 1.5}px #ff9100`;
+        simSun.style.boxShadow = `0 0 ${currentGlow}px ${glowColor}, 0 0 ${currentGlow * 1.5}px #ff9100`;
     }
 
-    progressSlider.addEventListener('input', (e) => {
-        const progress = parseInt(e.target.value);
-        updateEclipse(progress);
+    // Manual control with slider
+    progressSlider.addEventListener('input', function() {
+        const value = this.value;
+        updateEclipse(parseFloat(value));
     });
 
-    playButton.addEventListener('click', () => {
+    // Play/Pause animation
+    playButton.addEventListener('click', function() {
         if (animationInterval) {
-            // Stop animation
             clearInterval(animationInterval);
             animationInterval = null;
-            playButton.querySelector('.play-icon').textContent = '▶️';
-            playButton.querySelector('span:last-child').textContent = 'Play Animation';
+            this.querySelector('.play-icon').textContent = '▶️';
+            this.querySelector('span:last-child').textContent = 'Play Animation';
         } else {
-            // Start animation
             progressSlider.value = 0;
-            playButton.querySelector('.play-icon').textContent = '⏸️';
-            playButton.querySelector('span:last-child').textContent = 'Pause Animation';
-            
+            updateEclipse(0);
+            this.querySelector('.play-icon').textContent = '⏸️';
+            this.querySelector('span:last-child').textContent = 'Pause Animation';
+
+            let progress = 0;
             animationInterval = setInterval(() => {
-                const currentProgress = parseFloat(progressSlider.value);
-                if (currentProgress >= 100) {
+                progress += 0.5;
+                if (progress > 100) {
+                    progress = 100;
                     clearInterval(animationInterval);
                     animationInterval = null;
-                    playButton.querySelector('.play-icon').textContent = '▶️';
-                    playButton.querySelector('span:last-child').textContent = 'Play Animation';
-                } else {
-                    progressSlider.value = currentProgress + 0.5;
-                    updateEclipse(currentProgress + 0.5);
+                    this.querySelector('.play-icon').textContent = '▶️';
+                    this.querySelector('span:last-child').textContent = 'Play Animation';
                 }
+                progressSlider.value = progress;
+                updateEclipse(progress);
             }, 50);
         }
     });

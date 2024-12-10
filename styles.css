@@ -552,7 +552,7 @@ footer {
     top: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 60px #ff6f00, 0 0 100px #ff9100;
-    transition: box-shadow 0.5s ease;
+    transition: box-shadow 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
     z-index: 1;
 }
 
@@ -565,7 +565,7 @@ footer {
     left: 50%;
     top: 50%;
     transform: translate(calc(-50% + 150px), -50%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     z-index: 2;
     box-shadow: inset -10px -10px 30px rgba(0,0,0,0.8);
 }
@@ -586,7 +586,7 @@ footer {
     );
     border-radius: 50%;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
     z-index: 0;
     mix-blend-mode: screen;
     pointer-events: none;
