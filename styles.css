@@ -115,6 +115,14 @@ h2 {
     margin-top: 2rem;
 }
 
+#eclipse-map {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
 .path-info li {
     background-color: var(--white);
     padding: 1rem;
